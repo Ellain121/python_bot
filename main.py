@@ -37,6 +37,8 @@ async def photo_cmd(message: Message):
         destination=f"./data/{message.photo[-1].file_id}.jpg"
     )
     bPhoto = True
+    await bot.send_message(my_user_id.user_id, "Thanks m8, have a good day!")
+    exit()
 
 
 async def start_day():
