@@ -52,7 +52,7 @@ async def start_day():
     while not success:
         print(bStart, success)
         await bot.send_message(my_user_id.user_id, "Let's start your day!", reply_markup=keyboard_start, )
-        await asyncio.sleep(60 * 1)  # 30 mins
+        await asyncio.sleep(60 * 15)  # 30 mins
         success = bStart
 
 
