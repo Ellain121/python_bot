@@ -8,6 +8,14 @@ import logging
 import my_user_id
 from datetime import datetime
 
+
+filename = str("./logs/") + datetime.now().strftime("%d_%b_%Y_%A_logs.txt")
+# logging.basicConfig(filename=filename, filemode='a',
+#                     format='(%(asctime)s, %(name)s, %(levelname)s): %(message)s', level=logging.INFO)
+logging.basicConfig(format='---> (%(asctime)s, %(name)s, %(levelname)s): %(message)s', level=logging.INFO, handlers=[
+    logging.FileHandler(filename=filename, mode="a"),
+    logging.StreamHandler()
+])
 logging.basicConfig(level=logging.INFO)
 bot = Bot(token=my_token_unsecure.Token)
 dp = Dispatcher()
@@ -16,6 +24,8 @@ router = Router()
 ##################
 bStart = False
 bPhoto = False
+
+print(my_user_id.user_id)
 
 
 def get_time():
@@ -38,6 +48,7 @@ async def photo_cmd(message: Message):
     )
     bPhoto = True
     await bot.send_message(my_user_id.user_id, "Thanks m8, have a good day!")
+    logging.info("EXIT()")
     exit()
 
 
@@ -50,14 +61,12 @@ async def start_day():
     keyboard_start = ReplyKeyboardMarkup(keyboard=kb_start)
 
     while not success:
-        print(bStart, success)
-        await bot.send_message(my_user_id.user_id, "Let's start your day!", reply_markup=keyboard_start, )
+        await bot.send_message(my_user_id.user_id, "Let's start your day!", reply_markup=keyboard_start)
         await asyncio.sleep(60 * 15)  # 30 mins
         success = bStart
 
 
 async def maui_routine():
-    print("I've been there!")
     await start_day()
 
 
