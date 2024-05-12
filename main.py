@@ -7,9 +7,11 @@ import time
 import logging
 import my_user_id
 from datetime import datetime
+import os
 
-
-filename = str("./logs/") + datetime.now().strftime("%d_%b_%Y_%A_logs.txt")
+script_dir = os.path.dirname(os.path.realpath(__file__))
+filename = script_dir + str("/logs/") + \
+    datetime.now().strftime("%d_%b_%Y_%A_logs.txt")
 # logging.basicConfig(filename=filename, filemode='a',
 #                     format='(%(asctime)s, %(name)s, %(levelname)s): %(message)s', level=logging.INFO)
 logging.basicConfig(format='---> (%(asctime)s, %(name)s, %(levelname)s): %(message)s', level=logging.INFO, handlers=[
@@ -44,7 +46,7 @@ async def photo_cmd(message: Message):
     global bPhoto
     await bot.download(
         message.photo[-1],
-        destination=f"./data/{message.photo[-1].file_id}.jpg"
+        destination=f"{script_dir}/data/{message.photo[-1].file_id}.jpg"
     )
     bPhoto = True
     await bot.send_message(my_user_id.user_id, "Thanks m8, have a good day!")
